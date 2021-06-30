@@ -1,9 +1,3 @@
-variable "instance_name" {
-  description = "Value of the Name tag for the EC2 instance"
-  type        = string
-  default     = "ExampleAppServerInstance"
-}
-
 variable "resource_ami_amazonLinux2" {
   description = "AMI for Amazon Linux 2"
   type        = string
@@ -32,6 +26,12 @@ variable "app_server_instance_name" {
   description = "Value of the Name tag for the EC2 app_server instance"
   type        = string
   default     = "AppServer"
+}
+
+variable "pg_db_server_instance_name" {
+  description = "Value of the Name tag for the EC2 pg_db_server instance"
+  type        = string
+  default     = "DbServer"
 }
 
 variable "environment" {
