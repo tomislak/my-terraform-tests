@@ -1,0 +1,4 @@
+[servers]
+appserver1	ansible_host=18.192.114.118	ansible_user=ec2-user	ansible_ssh_key_file=/home/etokral/.ssh/id_rsa.pub
+appserver2	ansible_host=3.67.34.29	ansible_user=ec2-user	ansible_ssh_key_file=/home/etokral/.ssh/id_rsa.pub
+dbserver	ansible_host=35.158.114.8	ansible_user=ec2-user	ansible_ssh_key_file=/home/etokral/.ssh/id_rsa.pub
