@@ -1,0 +1,19 @@
+---
+- name: Ansible package Playbook
+  gather_facts: false
+  hosts: _AppServer
+  vars:
+    ansible_user: ec2-user
+    ansible_ssh_private_key_file: "/home/etokral/.ssh/id_rsa.pub"
+  tasks:
+    - name: Inatall package
+      yum:
+        name: httpd
+        state: present
+      become: true
+    - name: start and enable service
+      systemd:
+        name: httpd
+        state: started
+        enabled: yes
+      become: true
