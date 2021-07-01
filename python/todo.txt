@@ -1,0 +1,5 @@
+Install httpd, start, enable
+Put cgi.conf in /etc/httpd/conf.d
+Put hostDate.py to /var/www/cgi-bin
+Check python3
+Change mod to 755

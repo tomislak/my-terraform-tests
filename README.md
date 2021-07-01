@@ -68,3 +68,9 @@ Install ansible
 ---------------
 sudo apt install ansible
 ansible --version
+
+Ansible dynamic inventory
+-------------------------
+https://clarusway.com/ansible-working-with-dynamic-inventory-using-aws-ec2-plugin/
+sudo pip3 install boto3
+ansible-inventory --graph -i inventory_aws_ec2.yml
