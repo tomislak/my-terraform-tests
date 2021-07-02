@@ -8,12 +8,12 @@
   tasks:
     - name: Copy cgi config files 
       copy:
-        src: /home/etokral/Technology/Terraform/my-terraform-tests/python/cgi.conf
+        src: /home/etokral/Technology/Terraform/my-terraform-tests/ansible/files/cgi.conf
         dest: /etc/httpd/conf.d
       become: true
     - name: Copy python files 
       copy:
-        src: /home/etokral/Technology/Terraform/my-terraform-tests/python/hostDate.py
+        src: /home/etokral/Technology/Terraform/my-terraform-tests/ansible/files/hostDate.py
         dest: /var/www/cgi-bin
         mode: '755'
       become: true
