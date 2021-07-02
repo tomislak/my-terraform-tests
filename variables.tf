@@ -34,6 +34,12 @@ variable "pg_db_server_instance_name" {
   default     = "DbServer"
 }
 
+variable "proxy_server_instance_name" {
+  description = "Value of the Name tag for the EC2 pg_db_server instance"
+  type        = string
+  default     = "ProxyServer"
+}
+
 variable "environment" {
   description = "sort of environment"
   type        = string

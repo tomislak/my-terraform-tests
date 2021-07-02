@@ -31,3 +31,15 @@ resource "aws_instance" "pg_db_server" {
   }
 }
 
+resource "aws_instance" "proxy_server" {
+  ami             = var.resource_ami_amazonLinux2
+  instance_type   = "t2.micro"
+  key_name        = "etokral@ubuntu2004gui"
+  security_groups = ["my-default", ]
+
+  tags = {
+    Name        = var.proxy_server_instance_name
+    Project     = var.project
+    Environment = var.environment
+  }
+}

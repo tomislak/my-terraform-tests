@@ -1,0 +1,24 @@
+---
+- name: Ansible app server setup playbook
+  gather_facts: false
+  hosts: _ProxyServer
+  vars:
+    ansible_user: ec2-user
+    ansible_ssh_private_key_file: "/home/etokral/.ssh/id_rsa.pub"
+  tasks:
+    - name: Inatall nginx1 package
+      shell: "amazon-linux-extras install nginx1 -y"
+      args:
+        creates: /usr/sbin/nginx
+      become: true
+    - name: Copy cgi config files 
+      copy:
+        src: /home/etokral/Technology/Terraform/my-terraform-tests/ansible/files/load-balancer.conf
+        dest: /etc/nginx/conf.d
+      become: true
+    - name: start and enable service
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
+      become: true
