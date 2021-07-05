@@ -13,8 +13,8 @@
       become: true
     - name: Copy cgi config files 
       copy:
-        src: /home/etokral/Technology/Terraform/my-terraform-tests/ansible/files/load-balancer.conf
-        dest: /etc/nginx/conf.d
+        src: /home/etokral/Technology/Terraform/my-terraform-tests/ansible/files/load-balancer.tf.conf
+        dest: /etc/nginx/conf.d/load-balancer.conf
       become: true
     - name: start and enable service
       systemd:

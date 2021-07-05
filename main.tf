@@ -12,7 +12,7 @@ resource "aws_instance" "app_server" {
   security_groups = ["my-default", ]
 
   tags = {
-    Name	= var.app_server_instance_name
+    Name        = var.app_server_instance_name
     Project     = var.project
     Environment = var.environment
   }
@@ -42,4 +42,22 @@ resource "aws_instance" "proxy_server" {
     Project     = var.project
     Environment = var.environment
   }
+}
+
+resource "local_file" "load_balancer_conf" {
+  filename = "./ansible/files/load-balancer.tf.conf"
+  content  = <<-EOT
+    upstream backend {
+    %{for ip in aws_instance.app_server.*.private_ip~}
+      server ${ip};
+    %{endfor~}
+      }
+
+      server {
+        listen 80;
+        location /hostDate {
+          proxy_pass http://backend/cgi-bin/hostDate.py;
+        }
+      }
+  EOT
 }
