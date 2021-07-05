@@ -21,6 +21,7 @@
         name: psycopg2-binary
         state: present
       become: true
+
     - name: Check if postgres is initialized
       ansible.builtin.stat:
         path: /var/lib/pgsql/data/pg_hba.conf
@@ -36,3 +37,80 @@
         state: started
         enabled: yes
       become: true
+
+    - name: Create aplication database
+      postgresql_db:
+        state: present
+        name: hostDate
+      become: yes
+      become_user: postgres
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
+    - name: Create db user
+      postgresql_user:
+        state: present
+        name: hostDate
+        password: hostDate
+      become: yes
+      become_user: postgres
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
+    - name: Grant db user to app db
+      postgresql_privs:
+        type: database
+        database: hostDate
+        roles: hostDate
+        grant_option: no
+        privs: all
+      become: yes
+      become_user: postgres
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
+    - name: Allow md5 connection
+      postgresql_pg_hba:
+        dest: "~/data/pg_hba.conf"
+        contype: host
+        databases: all
+        method: md5
+        users: hostDate
+        create: true
+      become: yes
+      become_user: postgres
+      notify: restart postgres
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
+    - name: Allow local md5 connection
+      postgresql_pg_hba:
+        dest: "~/data/pg_hba.conf"
+        contype: local
+        databases: all
+        method: md5
+        users: hostDate
+        create: true
+      become: yes
+      become_user: postgres
+      notify: restart postgres
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
+
+    - name: Create table
+      postgresql_table:
+        db: hostDate
+        name: hostDate_table
+        owner: hostDate
+        columns:
+        - id bigserial primary key
+        - stringhost text
+        - stringdate text
+      become: yes
+      become_user: postgres
+      notify: restart postgres
+      vars:
+        ansible_python_interpreter: /usr/bin/python3
+
+  handlers:
+    - name: restart postgres
+      systemd:
+        name: postgresql
+        state: restarted
+      become: yes
