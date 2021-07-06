@@ -73,6 +73,7 @@
         databases: all
         method: md5
         users: hostDate
+        address: samenet
         create: true
       become: yes
       become_user: postgres
@@ -95,9 +96,9 @@
     - name: Set up listening on all ip addresses
       lineinfile:
         path: /var/lib/pgsql/data/postgresql.conf
-        regexp="^listen_addresses"
-        line="listen_addresses = '*'"
-        state=present
+        regexp: "^listen_addresses"
+        line: "listen_addresses = '*'"
+        state: present
       become: yes
       become_user: postgres
       notify: restart postgres
@@ -105,7 +106,7 @@
     - name: Create table
       postgresql_table:
         db: hostDate
-        name: hostDate_table
+        name: hostdate
         owner: hostDate
         columns:
         - id bigserial primary key
