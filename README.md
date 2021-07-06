@@ -4,9 +4,9 @@ Setup of ubuntu 20.04 LTS host
 
 Name resolving
 --------------
-$ resolvectl status
-$ cd /etc/systemd
-$ sudo vi resolved.conf 
+$ resolvectl status\
+$ cd /etc/systemd  
+$ sudo vi resolved.conf\ 
 $ sudo systemctl restart systemd-resolved
 
 This is a VirtualBox VM, first nw interface is a NAT ( for accessing internet )
