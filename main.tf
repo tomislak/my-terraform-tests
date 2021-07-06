@@ -61,3 +61,14 @@ resource "local_file" "load_balancer_conf" {
       }
   EOT
 }
+
+resource "local_file" "database_ini" {
+  filename = "./ansible/files/database.ini"
+  content  = <<-EOT
+    [postgresql]
+    host=aws_instance.pg_db_server.private_ip
+    database=hostDate
+    user=hostDate
+    password=hostDate
+  EOT
+}
