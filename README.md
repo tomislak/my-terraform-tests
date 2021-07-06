@@ -5,9 +5,9 @@ Setup of ubuntu 20.04 LTS host
 Name resolving
 --------------
 $ resolvectl status\
-$ cd /etc/systemd  
+$ cd /etc/systemd\
 $ sudo vi resolved.conf\ 
-$ sudo systemctl restart systemd-resolved
+$ sudo systemctl restart systemd-resolved\
 
 This is a VirtualBox VM, first nw interface is a NAT ( for accessing internet )
 and second is HostOnly for ssh access. Add ip interface with fix address
