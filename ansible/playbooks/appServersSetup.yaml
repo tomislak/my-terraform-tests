@@ -17,6 +17,12 @@
         state: started
         enabled: yes
       become: true
+    - name: Install pip module
+      pip:
+        executable: pip3
+        name: psycopg2-binary
+        state: present
+      become: true
     - name: Copy cgi config files 
       copy:
         src: /home/etokral/Technology/Terraform/my-terraform-tests/ansible/files/cgi.conf
