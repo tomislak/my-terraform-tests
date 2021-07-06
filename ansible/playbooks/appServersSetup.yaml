@@ -34,3 +34,9 @@
         dest: /var/www/cgi-bin
         mode: '755'
       become: true
+    - name: Copy ini files 
+      copy:
+        src: /home/etokral/Technology/Terraform/my-terraform-tests/ansible/files/database.ini
+        dest: /var/www/cgi-bin
+        mode: '755'
+      become: true
