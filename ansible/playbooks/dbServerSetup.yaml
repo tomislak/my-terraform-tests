@@ -92,6 +92,15 @@
       notify: restart postgres
       vars:
         ansible_python_interpreter: /usr/bin/python3
+    - name: Set up listening on all ip addresses
+      lineinfile:
+        path: /var/lib/pgsql/data/postgresql.conf
+        regexp="^listen_addresses"
+        line="listen_addresses = '*'"
+        state=present
+      become: yes
+      become_user: postgres
+      notify: restart postgres
 
     - name: Create table
       postgresql_table:
@@ -104,7 +113,6 @@
         - stringdate text
       become: yes
       become_user: postgres
-      notify: restart postgres
       vars:
         ansible_python_interpreter: /usr/bin/python3
 
