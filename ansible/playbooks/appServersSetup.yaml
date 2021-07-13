@@ -40,9 +40,3 @@
         dest: /var/www/cgi-bin
         mode: '755'
       become: true
-    - name: Copy connect files 
-      copy:
-        src: /home/etokral/Technology/Terraform/my-terraform-tests/ansible/files/connectToDb.py
-        dest: /var/www/cgi-bin
-        mode: '755'
-      become: true
