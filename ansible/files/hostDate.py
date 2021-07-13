@@ -35,6 +35,23 @@ def select():
             conn.close()
             #print('Database connection closed.')
 
+def selectLast10():
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM hostdate ORDER BY id DESC LIMIT 10;')
+        for red in cur.fetchall():
+            print('<p>' + str(red) + '</p>')
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            #print('Database connection closed.')
+
 def insert():
     conn = None
     try:
@@ -62,8 +79,8 @@ if __name__ == '__main__':
     print('</head>')
     print('<body>')
     print('<h2>' + str(platform.node()) + '\t' + str(datetime.now().isoformat()) +'</h2>')
+    insert()
+    selectLast10()
     print('</body>')
     print('</html>')
-    insert()
-    select()
 
