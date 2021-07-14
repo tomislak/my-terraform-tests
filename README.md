@@ -4,29 +4,29 @@ This is a simple app, consists of one reverse proxy ( nginx ) in front of
 several httpd servers ( number is defined in variable.tf -> instance_count ),
 which serve simple python app. App prints its current host name and datetime
 and store this to postgreSQL database. Retrive last 10 rows from posrgreSQL 
-and print ir on web page. 
+and print them on web page. 
 
-It use terraform to create VM's on AWS and ansible to configure services on them.\
+It use terraform to create VM's on AWS and ansible to configure services on them.
 
 Procedure for creating environment on AWS:\
 0. init terraform:\
-	my-terraform-tests$ terraform init\
+	my-terraform-tests$ terraform init
 
 1. run terraform to create VM's on AWS\
 	my-terraform-tests$ terraform apply\
 		( answer wth yes to create VM's )
 
 2. change to ansible directory:\
-	my-terraform-tests$ cd ansible\
+	my-terraform-tests$ cd ansible
 
 3. run playbook for db server:\
-	ansible$ ansible-playbook playbooks/dbServerSetup.yaml\
+	ansible$ ansible-playbook playbooks/dbServerSetup.yaml
 
 4. run playbook for app servers:\
-	ansible$ ansible-playbook playbooks/appServersSetup.yaml\
+	ansible$ ansible-playbook playbooks/appServersSetup.yaml
 
 5. run playbook for proxy server:\
-	ansible$ ansible-playbook playbooks/proxyServerSetup.yaml\
+	ansible$ ansible-playbook playbooks/proxyServerSetup.yaml
 
 6. change back to terraform dir to find proxy public ip address:\
 	ansible$ cd ..\
@@ -34,35 +34,35 @@ Procedure for creating environment on AWS:\
 	...\
 	instance_proxy_public_ip = [\
 	  "3.66.221.203",\
-	]\
+	]
 
 7. go to:\
-	http://3.66.221.203/hostDate\
-   and hit reload couple of times, you should see similar output:\
+	http://3.66.221.203/hostDate
+   and hit reload couple of times, you should see similar output:
 
-		ip-172-31-11-126.eu-central-1.compute.internal 2021-07-13T08:53:06.961878\
+		ip-172-31-11-126.eu-central-1.compute.internal 2021-07-13T08:53:06.961878
 
-		(14, 'ip-172-31-11-126.eu-central-1.compute.internal', '2021-07-13T08:53:07.378968')\
+		(14, 'ip-172-31-11-126.eu-central-1.compute.internal', '2021-07-13T08:53:07.378968')
 
-		(13, 'ip-172-31-3-208.eu-central-1.compute.internal', '2021-07-13T08:53:05.774802')\
+		(13, 'ip-172-31-3-208.eu-central-1.compute.internal', '2021-07-13T08:53:05.774802')
 
-		(12, 'ip-172-31-0-192.eu-central-1.compute.internal', '2021-07-13T08:53:04.915618')\
+		(12, 'ip-172-31-0-192.eu-central-1.compute.internal', '2021-07-13T08:53:04.915618')
 
-		(11, 'ip-172-31-11-126.eu-central-1.compute.internal', '2021-07-13T08:53:03.931413')\
+		(11, 'ip-172-31-11-126.eu-central-1.compute.internal', '2021-07-13T08:53:03.931413')
 
-		(10, 'ip-172-31-3-208.eu-central-1.compute.internal', '2021-07-13T08:53:02.984679')\
+		(10, 'ip-172-31-3-208.eu-central-1.compute.internal', '2021-07-13T08:53:02.984679')
 
-		(9, 'ip-172-31-0-192.eu-central-1.compute.internal', '2021-07-13T08:53:01.777761')\
+		(9, 'ip-172-31-0-192.eu-central-1.compute.internal', '2021-07-13T08:53:01.777761')
 
-		(8, 'ip-172-31-11-126.eu-central-1.compute.internal', '2021-07-13T08:52:59.517626')\
+		(8, 'ip-172-31-11-126.eu-central-1.compute.internal', '2021-07-13T08:52:59.517626')
 
-		(7, 'ip-172-31-3-208.eu-central-1.compute.internal', '2021-07-13T08:52:58.579990')\
+		(7, 'ip-172-31-3-208.eu-central-1.compute.internal', '2021-07-13T08:52:58.579990')
 
-		(6, 'ip-172-31-0-192.eu-central-1.compute.internal', '2021-07-13T08:52:57.121242')\
+		(6, 'ip-172-31-0-192.eu-central-1.compute.internal', '2021-07-13T08:52:57.121242')
 
-		(5, 'ip-172-31-11-126.eu-central-1.compute.internal', '2021-07-13T08:52:53.885075')\
+		(5, 'ip-172-31-11-126.eu-central-1.compute.internal', '2021-07-13T08:52:53.885075')
 
-8. and that's it.\
+8. and that's it.
 
 
 
